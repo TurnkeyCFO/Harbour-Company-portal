@@ -11,10 +11,11 @@
     :root {
       --tk-navy: #00263A;
       --tk-navy-mid: #003A56;
+      --tk-navy-soft: #0A4A6A;
       --tk-green: #00C85A;
+      --tk-green-bright: #05DD69;
       --tk-green-soft: #5DD870;
       --tk-bg-light: #F2F5F8;
-      --tk-bg-soft: #EEF0F1;
       --tk-white: #FFFFFF;
       --tk-text: #0D1F2D;
       --tk-text-soft: #36576A;
@@ -23,7 +24,8 @@
       --tk-success: #00C85A;
       --tk-warning: #E8920A;
       --tk-danger: #E03A52;
-      --shadow: 0 6px 18px rgba(7, 47, 69, 0.08);
+      --shadow-soft: 0 10px 30px rgba(7, 47, 69, 0.08);
+      --shadow-card: 0 20px 44px rgba(7, 47, 69, 0.10);
     }
 
     * { box-sizing: border-box; }
@@ -33,13 +35,15 @@
       margin: 0;
       font-family: "Plus Jakarta Sans", sans-serif;
       color: var(--tk-text);
-      background: linear-gradient(180deg, var(--tk-bg-light) 0%, var(--tk-white) 100%);
+      background:
+        radial-gradient(circle at top left, rgba(0, 200, 90, 0.10), transparent 24%),
+        linear-gradient(180deg, #f7fafc 0%, var(--tk-bg-light) 46%, #ffffff 100%);
     }
 
     .page {
-      width: min(1320px, calc(100% - 32px));
+      width: min(1240px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 24px 0 48px;
+      padding: 20px 0 52px;
     }
 
     .topbar {
@@ -47,100 +51,187 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding-bottom: 18px;
+      padding: 16px 0 22px;
       border-bottom: 1px solid var(--tk-border);
     }
 
-    .topbar a {
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 38, 58, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-soft);
+      flex-shrink: 0;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .brand-meta {
+      display: grid;
+      gap: 4px;
+    }
+
+    .brand-name {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--tk-text-muted);
+    }
+
+    .brand-sub {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--tk-navy);
+    }
+
+    .back-link {
       color: var(--tk-text-soft);
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
     }
 
-    .topbar a:hover { color: var(--tk-navy); }
+    .back-link:hover { color: var(--tk-navy); }
 
-    .brand {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--tk-navy);
-    }
-
-    .header {
+    .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.8fr);
-      gap: 24px;
-      align-items: start;
-      padding: 28px 0 24px;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+      gap: 22px;
+      align-items: stretch;
+      padding: 28px 0 20px;
     }
 
-    .header h1 {
-      margin: 0 0 10px;
-      font-size: clamp(30px, 4vw, 44px);
-      line-height: 1.02;
-      letter-spacing: -0.04em;
+    .hero-title {
+      margin: 0;
+      font-size: clamp(34px, 4.5vw, 56px);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
       color: var(--tk-navy);
     }
 
-    .header-copy {
+    .shimmer {
+      background: linear-gradient(90deg, var(--tk-navy) 0%, var(--tk-green) 28%, var(--tk-green-bright) 48%, var(--tk-navy-mid) 72%, var(--tk-navy) 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 5s linear infinite;
+    }
+
+    @keyframes shimmer {
+      to { background-position: 220% center; }
+    }
+
+    .hero-copy p {
+      margin: 16px 0 0;
       max-width: 760px;
       font-size: 15px;
-      line-height: 1.75;
+      line-height: 1.8;
       color: var(--tk-text-soft);
     }
 
-    .header-meta {
+    .hero-meta {
       display: flex;
       gap: 18px;
       flex-wrap: wrap;
-      margin-top: 14px;
+      margin-top: 18px;
       font-size: 13px;
       color: var(--tk-text-muted);
     }
 
-    .summary-panel {
-      padding: 18px;
-      border-radius: 12px;
-      border: 1px solid var(--tk-border);
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: var(--shadow);
+    .hero-panel {
+      background: linear-gradient(135deg, rgba(0, 38, 58, 0.98), rgba(10, 74, 106, 0.94));
+      border-radius: 22px;
+      padding: 24px;
+      color: var(--tk-white);
+      box-shadow: 0 22px 50px rgba(7, 47, 69, 0.18);
+      position: relative;
+      overflow: hidden;
     }
 
-    .summary-label {
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -18% -32% auto;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(0, 200, 90, 0.34), transparent 70%);
+    }
+
+    .hero-panel-label {
       font-size: 12px;
       font-weight: 700;
-      color: var(--tk-text-muted);
-      margin-bottom: 8px;
-    }
-
-    .summary-value {
-      font-size: 38px;
-      line-height: 1;
-      letter-spacing: -0.04em;
-      font-weight: 800;
-      color: var(--tk-danger);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.70);
       margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
     }
 
-    .summary-panel p {
+    .hero-panel-value {
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-panel p {
       margin: 0;
       font-size: 14px;
-      line-height: 1.7;
-      color: var(--tk-text-soft);
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.84);
+      max-width: 340px;
+      position: relative;
+      z-index: 1;
     }
 
     .layout {
       display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
+      grid-template-columns: 228px minmax(0, 1fr);
       gap: 24px;
       align-items: start;
     }
 
     .sidebar {
       position: sticky;
-      top: 20px;
+      top: 18px;
       align-self: start;
-      padding: 14px 0;
+    }
+
+    .side-panel {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(0, 38, 58, 0.08);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      padding: 16px;
+    }
+
+    .side-panel h2 {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--tk-text-muted);
     }
 
     .nav-group {
@@ -156,38 +247,37 @@
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
+      transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease;
       border: 1px solid transparent;
     }
 
     .nav-link:hover,
     .nav-link:focus-visible {
       color: var(--tk-navy);
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.86);
       border-color: var(--tk-border);
       outline: none;
     }
 
     .content {
       display: grid;
-      gap: 18px;
+      gap: 22px;
     }
 
     .section {
       display: grid;
       gap: 14px;
-      padding-top: 6px;
     }
 
     .section-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 16px;
     }
 
     .section-header h2 {
       margin: 0;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--tk-navy);
     }
@@ -200,16 +290,16 @@
 
     .section-note {
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--tk-text-soft);
-      max-width: 860px;
+      max-width: 900px;
     }
 
     .grid-4,
     .grid-3,
     .grid-2 {
       display: grid;
-      gap: 16px;
+      gap: 18px;
     }
 
     .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -217,33 +307,48 @@
     .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid var(--tk-border);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      padding: 18px;
+      background: rgba(255, 255, 255, 0.90);
+      border: 1px solid rgba(0, 38, 58, 0.08);
+      border-radius: 20px;
+      box-shadow: var(--shadow-card);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--tk-green), var(--tk-green-bright), var(--tk-navy-mid));
     }
 
     .metric-label {
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--tk-text-muted);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .metric-value {
-      font-size: 34px;
+      font-size: 36px;
       line-height: 1;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
       font-weight: 800;
       color: var(--tk-navy);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .metric-value.neg { color: var(--tk-danger); }
+
     .metric-text {
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--tk-text-soft);
     }
 
@@ -253,7 +358,8 @@
       font-size: 14px;
     }
 
-    th, td {
+    th,
+    td {
       padding: 12px 10px;
       border-bottom: 1px solid var(--tk-border);
       text-align: left;
@@ -262,7 +368,7 @@
 
     th {
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--tk-text-muted);
     }
 
@@ -273,42 +379,53 @@
 
     .commentary {
       display: grid;
-      gap: 12px;
+      gap: 14px;
     }
 
     .commentary-item {
-      padding: 16px 18px;
-      border-left: 4px solid var(--tk-green);
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      border: 1px solid var(--tk-border);
-      box-shadow: var(--shadow);
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(0, 38, 58, 0.08);
+      background: rgba(255, 255, 255, 0.90);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
     }
 
-    .commentary-item.warning { border-left-color: var(--tk-warning); }
-    .commentary-item.danger { border-left-color: var(--tk-danger); }
+    .commentary-item::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--tk-green);
+    }
+
+    .commentary-item.warning::before { background: var(--tk-warning); }
+    .commentary-item.danger::before { background: var(--tk-danger); }
 
     .commentary-item h3 {
-      margin: 0 0 8px;
-      font-size: 17px;
+      margin: 0 0 10px;
+      font-size: 18px;
       color: var(--tk-navy);
+      letter-spacing: -0.02em;
     }
 
     .commentary-item p {
       margin: 0;
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--tk-text-soft);
     }
 
     .note {
-      padding: 16px 18px;
-      border-radius: 12px;
+      padding: 18px 20px;
+      border-radius: 18px;
       border: 1px solid rgba(232, 146, 10, 0.28);
-      background: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.88);
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--tk-text-soft);
+      box-shadow: var(--shadow-soft);
     }
 
     .footer {
@@ -317,22 +434,20 @@
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
-      margin-top: 14px;
       padding-top: 18px;
       border-top: 1px solid var(--tk-border);
       font-size: 12px;
       color: var(--tk-text-muted);
     }
 
-    @media (max-width: 1100px) {
-      .header,
+    @media (max-width: 1080px) {
+      .hero,
       .layout {
         grid-template-columns: 1fr;
       }
 
       .sidebar {
         position: static;
-        padding: 0;
       }
 
       .nav-group {
@@ -347,16 +462,12 @@
 
     @media (max-width: 720px) {
       .page { width: min(100%, calc(100% - 20px)); }
+      .topbar, .footer { flex-direction: column; align-items: flex-start; }
       .grid-4,
       .grid-3,
       .grid-2,
       .nav-group {
         grid-template-columns: 1fr;
-      }
-      .topbar,
-      .footer {
-        flex-direction: column;
-        align-items: flex-start;
       }
     }
   </style>
@@ -364,38 +475,45 @@
 <body>
   <div class="page">
     <header class="topbar">
-      <div class="brand">TurnkeyCFO</div>
-      <a href="./index.html">Back to portal</a>
-    </header>
-
-    <section class="header">
-      <div>
-        <h1>March 2026 dashboard for Harbour Company</h1>
-        <div class="header-copy">
-          March was the weakest month of the quarter and pulled year-to-date performance sharply lower. Revenue slowed to
-          $22.1k while project labor and materials remained elevated, driving a steep gross loss and making collections the
-          most important near-term operating priority.
+      <div class="brand-lockup">
+        <div class="brand-logo">
+          <img src="./tk-cfo-logo.png" alt="Turnkey CFO logo" />
         </div>
-        <div class="header-meta">
-          <span>Reporting period: March 2026</span>
-          <span>Prepared from QuickBooks exports dated April 15, 2026</span>
+        <div class="brand-meta">
+          <div class="brand-name">Turnkey CFO</div>
+          <div class="brand-sub">Harbour Company monthly dashboard</div>
         </div>
       </div>
-      <aside class="summary-panel">
-        <div class="summary-label">March bottom line</div>
-        <div class="summary-value">($85.4k)</div>
+      <a class="back-link" href="./index.html">Back to portal</a>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <h1 class="hero-title">March 2026 <span class="shimmer">financial dashboard</span></h1>
+        <p>March was the weakest month of the quarter and pulled year-to-date performance sharply lower. Revenue slowed to $22.1k while project labor and materials remained elevated, driving a steep gross loss and making collections the most important near-term operating priority.</p>
+        <div class="hero-meta">
+          <span>Prepared from March 2026 reporting</span>
+          <span>QuickBooks exports dated April 15, 2026</span>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <div class="hero-panel-label">March bottom line</div>
+        <div class="hero-panel-value">($85.4k)</div>
         <p>March net loss accounted for roughly 60% of the quarter's YTD loss, with gross margin turning deeply negative before overhead is considered.</p>
       </aside>
     </section>
 
     <div class="layout">
       <aside class="sidebar">
-        <nav class="nav-group" aria-label="Dashboard sections">
-          <a class="nav-link" href="#overview">Overview</a>
-          <a class="nav-link" href="#performance">Performance</a>
-          <a class="nav-link" href="#cash">Cash and working capital</a>
-          <a class="nav-link" href="#insights">CFO commentary</a>
-        </nav>
+        <div class="side-panel">
+          <h2>Navigate</h2>
+          <nav class="nav-group" aria-label="Dashboard sections">
+            <a class="nav-link" href="#overview">Overview</a>
+            <a class="nav-link" href="#performance">Performance</a>
+            <a class="nav-link" href="#cash">Cash and working capital</a>
+            <a class="nav-link" href="#insights">CFO commentary</a>
+          </nav>
+        </div>
       </aside>
 
       <main class="content">
@@ -404,10 +522,7 @@
             <h2>Overview</h2>
             <div class="rule"></div>
           </div>
-          <div class="section-note">
-            These cards anchor the month: sales volume fell, job costs stayed high, and cash held only because the quarter
-            started with a cushion and financing offset part of the operating shortfall.
-          </div>
+          <div class="section-note">These cards anchor the month: sales volume fell, job costs stayed high, and cash held only because the quarter started with a cushion and financing offset part of the operating shortfall.</div>
           <div class="grid-4">
             <article class="card">
               <div class="metric-label">March revenue</div>
@@ -437,10 +552,7 @@
             <h2>Performance</h2>
             <div class="rule"></div>
           </div>
-          <div class="section-note">
-            February briefly showed positive operating leverage, but March reversed that progress as revenue contracted and
-            direct project costs stayed elevated.
-          </div>
+          <div class="section-note">February briefly showed positive operating leverage, but March reversed that progress as revenue contracted and direct project costs stayed elevated.</div>
           <div class="grid-2">
             <article class="card">
               <div class="metric-label">Quarter trend</div>
@@ -454,34 +566,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>January</td>
-                    <td class="text-right">$0.0k</td>
-                    <td class="text-right neg-text">($53.5k)</td>
-                    <td class="text-right neg-text">($67.7k)</td>
-                  </tr>
-                  <tr>
-                    <td>February</td>
-                    <td class="text-right">$93.0k</td>
-                    <td class="text-right pos-text">$20.7k</td>
-                    <td class="text-right pos-text">$11.8k</td>
-                  </tr>
-                  <tr>
-                    <td>March</td>
-                    <td class="text-right">$22.1k</td>
-                    <td class="text-right neg-text">($61.7k)</td>
-                    <td class="text-right neg-text">($85.4k)</td>
-                  </tr>
-                  <tr>
-                    <td><strong>YTD</strong></td>
-                    <td class="text-right"><strong>$115.1k</strong></td>
-                    <td class="text-right neg-text"><strong>($94.6k)</strong></td>
-                    <td class="text-right neg-text"><strong>($141.4k)</strong></td>
-                  </tr>
+                  <tr><td>January</td><td class="text-right">$0.0k</td><td class="text-right neg-text">($53.5k)</td><td class="text-right neg-text">($67.7k)</td></tr>
+                  <tr><td>February</td><td class="text-right">$93.0k</td><td class="text-right pos-text">$20.7k</td><td class="text-right pos-text">$11.8k</td></tr>
+                  <tr><td>March</td><td class="text-right">$22.1k</td><td class="text-right neg-text">($61.7k)</td><td class="text-right neg-text">($85.4k)</td></tr>
+                  <tr><td><strong>YTD</strong></td><td class="text-right"><strong>$115.1k</strong></td><td class="text-right neg-text"><strong>($94.6k)</strong></td><td class="text-right neg-text"><strong>($141.4k)</strong></td></tr>
                 </tbody>
               </table>
             </article>
-
             <article class="card">
               <div class="metric-label">March cost pressure</div>
               <table>
@@ -493,31 +584,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Labor COGS</td>
-                    <td class="text-right">$54.8k</td>
-                    <td class="text-right">247.8%</td>
-                  </tr>
-                  <tr>
-                    <td>Materials COGS</td>
-                    <td class="text-right">$28.7k</td>
-                    <td class="text-right">129.7%</td>
-                  </tr>
-                  <tr>
-                    <td>Total COGS</td>
-                    <td class="text-right">$83.9k</td>
-                    <td class="text-right">379.2%</td>
-                  </tr>
-                  <tr>
-                    <td>Operating expenses</td>
-                    <td class="text-right">$21.8k</td>
-                    <td class="text-right">98.4%</td>
-                  </tr>
-                  <tr>
-                    <td>Other expenses</td>
-                    <td class="text-right">$1.9k</td>
-                    <td class="text-right">8.7%</td>
-                  </tr>
+                  <tr><td>Labor COGS</td><td class="text-right">$54.8k</td><td class="text-right">247.8%</td></tr>
+                  <tr><td>Materials COGS</td><td class="text-right">$28.7k</td><td class="text-right">129.7%</td></tr>
+                  <tr><td>Total COGS</td><td class="text-right">$83.9k</td><td class="text-right">379.2%</td></tr>
+                  <tr><td>Operating expenses</td><td class="text-right">$21.8k</td><td class="text-right">98.4%</td></tr>
+                  <tr><td>Other expenses</td><td class="text-right">$1.9k</td><td class="text-right">8.7%</td></tr>
                 </tbody>
               </table>
             </article>
@@ -529,10 +600,7 @@
             <h2>Cash and working capital</h2>
             <div class="rule"></div>
           </div>
-          <div class="section-note">
-            Operating cash flow was only modestly negative for the quarter because receivables, credit cards, and payables
-            moved, but the aging profile says that support is not yet converting into collected cash.
-          </div>
+          <div class="section-note">Operating cash flow was only modestly negative for the quarter because receivables, credit cards, and payables moved, but the aging profile says that support is not yet converting into collected cash.</div>
           <div class="grid-3">
             <article class="card">
               <div class="metric-label">Operating cash flow</div>
@@ -562,25 +630,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>61-90 days</td>
-                    <td class="text-right">$7.9k</td>
-                    <td class="text-right">5.7%</td>
-                  </tr>
-                  <tr>
-                    <td>91+ days</td>
-                    <td class="text-right">$131.2k</td>
-                    <td class="text-right">94.3%</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Total A/R</strong></td>
-                    <td class="text-right"><strong>$139.2k</strong></td>
-                    <td class="text-right"><strong>100.0%</strong></td>
-                  </tr>
+                  <tr><td>61-90 days</td><td class="text-right">$7.9k</td><td class="text-right">5.7%</td></tr>
+                  <tr><td>91+ days</td><td class="text-right">$131.2k</td><td class="text-right">94.3%</td></tr>
+                  <tr><td><strong>Total A/R</strong></td><td class="text-right"><strong>$139.2k</strong></td><td class="text-right"><strong>100.0%</strong></td></tr>
                 </tbody>
               </table>
             </article>
-
             <article class="card">
               <div class="metric-label">Largest aged balances</div>
               <table>
@@ -592,31 +647,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Terrence Ruffin</td>
-                    <td class="text-right">$94.7k</td>
-                    <td>91+</td>
-                  </tr>
-                  <tr>
-                    <td>John O'Malley</td>
-                    <td class="text-right">$25.9k</td>
-                    <td>91+</td>
-                  </tr>
-                  <tr>
-                    <td>Anita Gaskins</td>
-                    <td class="text-right">$12.8k</td>
-                    <td>91+</td>
-                  </tr>
-                  <tr>
-                    <td>Pinkney</td>
-                    <td class="text-right">$7.9k</td>
-                    <td>61-90</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Total A/P</strong></td>
-                    <td class="text-right"><strong>$2.5k</strong></td>
-                    <td>31-60</td>
-                  </tr>
+                  <tr><td>Terrence Ruffin</td><td class="text-right">$94.7k</td><td>91+</td></tr>
+                  <tr><td>John O'Malley</td><td class="text-right">$25.9k</td><td>91+</td></tr>
+                  <tr><td>Anita Gaskins</td><td class="text-right">$12.8k</td><td>91+</td></tr>
+                  <tr><td>Pinkney</td><td class="text-right">$7.9k</td><td>61-90</td></tr>
+                  <tr><td><strong>Total A/P</strong></td><td class="text-right"><strong>$2.5k</strong></td><td>31-60</td></tr>
                 </tbody>
               </table>
             </article>
@@ -625,12 +660,10 @@
 
         <section class="section" id="insights">
           <div class="section-header">
-            <h2>CFO commentary</h2>
+            <h2><span class="shimmer">CFO commentary</span></h2>
             <div class="rule"></div>
           </div>
-          <div class="section-note">
-            The month needs to be read as an execution and cash-conversion issue first, not just a reporting issue.
-          </div>
+          <div class="section-note">The month needs to be read as an execution and cash-conversion issue first, not just a reporting issue.</div>
           <div class="commentary">
             <article class="commentary-item danger">
               <h3>1. March job economics were upside down</h3>
@@ -649,11 +682,7 @@
               <p>Cash closed at $44.0k, yet operating cash flow was still negative and financing activity absorbed more cash than it contributed net. The business needs better conversion from completed work into billed and collected cash.</p>
             </article>
           </div>
-          <div class="note">
-            The downloaded balance sheet export dated April 15, 2026 shows $0 across all balance sheet lines. This dashboard does
-            not rely on that file for decision-making. Before using balance-sheet-based KPIs, re-export the report from QuickBooks
-            and verify book settings or report filters.
-          </div>
+          <div class="note">The downloaded balance sheet export dated April 15, 2026 shows $0 across all balance sheet lines. This dashboard does not rely on that file for decision-making. Before using balance-sheet-based KPIs, re-export the report from QuickBooks and verify book settings or report filters.</div>
         </section>
 
         <footer class="footer">
