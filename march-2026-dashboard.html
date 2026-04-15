@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harbour Company | March 2026 Financial Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --tk-navy: #00263A;
+      --tk-green: #00C85A;
+      --tk-green-soft: #5DD870;
+      --tk-text: #0D1F2D;
+      --tk-text-soft: #36576A;
+      --tk-text-muted: #7A909F;
+      --tk-success: #00C85A;
+      --tk-warning: #E8920A;
+      --tk-danger: #E03A52;
+      --shadow: 0 18px 40px rgba(7, 47, 69, 0.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      color: var(--tk-text);
+      background:
+        radial-gradient(circle at top right, rgba(0, 200, 90, 0.14), transparent 28%),
+        radial-gradient(circle at left center, rgba(0, 38, 58, 0.08), transparent 34%),
+        linear-gradient(180deg, #f7fbfd 0%, #eef4f7 100%);
+      min-height: 100vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.42) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.30;
+    }
+    .shell {
+      position: relative;
+      z-index: 1;
+      width: min(1220px, calc(100% - 28px));
+      margin: 20px auto 52px;
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(0, 38, 58, 0.98), rgba(10, 74, 106, 0.96));
+      color: white;
+      border-radius: 32px;
+      padding: 30px 30px 34px;
+      box-shadow: var(--shadow);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 440px;
+      height: 440px;
+      right: -150px;
+      top: -170px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(93, 216, 112, 0.28), transparent 68%);
+    }
+    .hero-top, .hero-grid, .section-header, .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .hero-grid { align-items: end; margin-top: 24px; }
+    .hero-grid > * { flex: 1; }
+    .eyebrow, .meta-label, .section-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .eyebrow { color: rgba(255, 255, 255, 0.72); }
+    .brand { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; }
+    .hero-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-link, .ghost-link {
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .hero-link {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.86);
+    }
+    .ghost-link {
+      background: rgba(0, 200, 90, 0.16);
+      color: #d6ffe8;
+      border: 1px solid rgba(0, 200, 90, 0.26);
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+    h1 span { color: var(--tk-green-soft); }
+    .hero-copy p, .section-note, .insight p, .note {
+      line-height: 1.7;
+      font-size: 14px;
+    }
+    .hero-copy p { margin: 0; color: rgba(255, 255, 255, 0.82); }
+    .hero-summary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      padding: 18px;
+      max-width: 360px;
+    }
+    .hero-summary .meta-label { color: rgba(255, 255, 255, 0.64); margin-bottom: 10px; }
+    .summary-value { font-size: 34px; line-height: 1; font-weight: 800; color: #ffe6ea; margin-bottom: 8px; }
+    .hero-summary p { margin: 0; font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, 0.76); }
+    .section {
+      margin-top: 26px;
+      background: rgba(255, 255, 255, 0.38);
+      border-radius: 30px;
+      padding: 18px 0 0;
+    }
+    .section-header {
+      padding: 0 8px 14px;
+      margin: 0 18px 16px;
+      border-bottom: 1px solid rgba(0, 38, 58, 0.08);
+      align-items: flex-start;
+    }
+    .section-kicker { color: var(--tk-text-muted); }
+    .section-title { margin: 6px 0 0; font-size: 28px; letter-spacing: -0.03em; }
+    .section-note { margin: 8px 0 0; max-width: 760px; color: var(--tk-text-soft); }
+    .grid-four, .grid-three, .grid-two {
+      display: grid;
+      gap: 18px;
+      padding: 0 18px 18px;
+    }
+    .grid-four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(0, 38, 58, 0.08);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+    .metric-card {
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .metric-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--tk-green), var(--tk-green-soft));
+    }
+    .metric-card.negative::before { background: linear-gradient(90deg, var(--tk-danger), #ff9aa9); }
+    .metric-card.warning::before { background: linear-gradient(90deg, var(--tk-warning), #f7c56a); }
+    .metric-value {
+      font-size: clamp(28px, 3vw, 40px);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      font-weight: 800;
+    }
+    .metric-trend { color: var(--tk-text-soft); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(0, 38, 58, 0.08);
+      text-align: left;
+    }
+    th {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--tk-text-muted);
+    }
+    tr:last-child td { border-bottom: 0; }
+    .text-right { text-align: right; }
+    .neg { color: var(--tk-danger); font-weight: 700; }
+    .pos { color: var(--tk-success); font-weight: 700; }
+    .insight-list { display: grid; gap: 14px; }
+    .insight {
+      padding: 18px 18px 18px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 38, 58, 0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,255,255,0.84));
+      position: relative;
+    }
+    .insight::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 18px;
+      bottom: 18px;
+      width: 4px;
+      border-radius: 999px;
+      background: var(--tk-green);
+    }
+    .insight.warning::before { background: var(--tk-warning); }
+    .insight.danger::before { background: var(--tk-danger); }
+    .insight h3 { margin: 0 0 8px; font-size: 18px; letter-spacing: -0.02em; }
+    .insight p { margin: 0; color: var(--tk-text-soft); }
+    .note {
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(232, 146, 10, 0.24);
+      color: var(--tk-text-soft);
+      margin: 0 18px 18px;
+    }
+    .footer {
+      margin: 10px 18px 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0, 38, 58, 0.08);
+      color: var(--tk-text-muted);
+      font-size: 12px;
+      flex-wrap: wrap;
+      line-height: 1.6;
+    }
+    @media (max-width: 1024px) {
+      .grid-four, .grid-three, .grid-two { grid-template-columns: 1fr 1fr; }
+      .hero-grid { flex-direction: column; }
+      .hero-summary { max-width: none; }
+    }
+    @media (max-width: 720px) {
+      .shell { width: min(100%, calc(100% - 20px)); }
+      .hero { padding: 22px 18px 24px; }
+      .hero-top, .section-header, .footer { flex-direction: column; }
+      .grid-four, .grid-three, .grid-two { grid-template-columns: 1fr; padding: 0 10px 14px; }
+      .section-header { margin: 0 10px 14px; }
+      .note, .footer { margin-left: 10px; margin-right: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">TurnkeyCFO client dashboard</div>
+          <div class="brand">Harbour Company</div>
+        </div>
+        <div class="hero-links">
+          <a class="hero-link" href="./index.html">Back to portal</a>
+          <a class="ghost-link" href="#insights">Jump to insights</a>
+        </div>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1><span>March 2026</span> dashboard for Harbour Company</h1>
+          <p>March was the weakest month of the quarter and pulled year-to-date performance sharply lower. Revenue slowed to $22.1k while project labor and materials remained elevated, driving a steep gross loss and making collections the most important near-term operating priority.</p>
+        </div>
+        <aside class="hero-summary">
+          <div class="meta-label">March bottom line</div>
+          <div class="summary-value">($85.4k)</div>
+          <p>March net loss accounted for roughly 60% of the quarter's YTD loss, with gross margin turning deeply negative before overhead is considered.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Overview</div>
+          <h2 class="section-title">March first, YTD in view</h2>
+          <p class="section-note">These cards anchor the month: sales volume fell, job costs stayed high, and cash held only because the quarter started with a cushion and financing offset part of the operating shortfall.</p>
+        </div>
+      </div>
+      <div class="grid-four">
+        <article class="card metric-card">
+          <div class="meta-label">March revenue</div>
+          <div class="metric-value">$22.1k</div>
+          <div class="metric-trend">Down 76.2% from February's $93.0k. YTD revenue sits at $115.1k.</div>
+        </article>
+        <article class="card metric-card negative">
+          <div class="meta-label">March gross profit</div>
+          <div class="metric-value">($61.7k)</div>
+          <div class="metric-trend">Gross margin landed at negative 279.2% as COGS ran to $83.9k on $22.1k of sales.</div>
+        </article>
+        <article class="card metric-card negative">
+          <div class="meta-label">March net income</div>
+          <div class="metric-value">($85.4k)</div>
+          <div class="metric-trend">YTD net income is now ($141.4k), with March driving the majority of the quarter loss.</div>
+        </article>
+        <article class="card metric-card warning">
+          <div class="meta-label">Cash at March 31</div>
+          <div class="metric-value">$44.0k</div>
+          <div class="metric-trend">Quarter-end cash fell $11.6k from the beginning of the period despite financing support.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">P&amp;L</div>
+          <h2 class="section-title">Monthly performance bridge</h2>
+          <p class="section-note">February briefly showed positive operating leverage, but March reversed that progress as revenue contracted and direct project costs stayed elevated.</p>
+        </div>
+      </div>
+      <div class="grid-two">
+        <article class="card">
+          <div class="meta-label">Quarter trend</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th class="text-right">Revenue</th>
+                <th class="text-right">Gross profit</th>
+                <th class="text-right">Net income</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>January</td><td class="text-right">$0.0k</td><td class="text-right neg">($53.5k)</td><td class="text-right neg">($67.7k)</td></tr>
+              <tr><td>February</td><td class="text-right">$93.0k</td><td class="text-right pos">$20.7k</td><td class="text-right pos">$11.8k</td></tr>
+              <tr><td>March</td><td class="text-right">$22.1k</td><td class="text-right neg">($61.7k)</td><td class="text-right neg">($85.4k)</td></tr>
+              <tr><td><strong>YTD</strong></td><td class="text-right"><strong>$115.1k</strong></td><td class="text-right neg"><strong>($94.6k)</strong></td><td class="text-right neg"><strong>($141.4k)</strong></td></tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="card">
+          <div class="meta-label">March cost pressure</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Line item</th>
+                <th class="text-right">March</th>
+                <th class="text-right">% of revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Labor COGS</td><td class="text-right">$54.8k</td><td class="text-right">247.8%</td></tr>
+              <tr><td>Materials COGS</td><td class="text-right">$28.7k</td><td class="text-right">129.7%</td></tr>
+              <tr><td>Total COGS</td><td class="text-right">$83.9k</td><td class="text-right">379.2%</td></tr>
+              <tr><td>Operating expenses</td><td class="text-right">$21.8k</td><td class="text-right">98.4%</td></tr>
+              <tr><td>Other expenses</td><td class="text-right">$1.9k</td><td class="text-right">8.7%</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Cash + working capital</div>
+          <h2 class="section-title">Liquidity held, but collections are the lever</h2>
+          <p class="section-note">Operating cash flow was only modestly negative for the quarter because receivables, credit cards, and payables moved, but the aging profile says that support is not yet converting into collected cash.</p>
+        </div>
+      </div>
+      <div class="grid-three">
+        <article class="card metric-card warning">
+          <div class="meta-label">Operating cash flow</div>
+          <div class="metric-value">($3.7k)</div>
+          <div class="metric-trend">Net cash from operations remained slightly negative through March 31, 2026.</div>
+        </article>
+        <article class="card metric-card">
+          <div class="meta-label">Ending cash</div>
+          <div class="metric-value">$44.0k</div>
+          <div class="metric-trend">Down from $55.5k at the start of the quarter, a decline of $11.6k.</div>
+        </article>
+        <article class="card metric-card warning">
+          <div class="meta-label">Financing cash flow</div>
+          <div class="metric-value">($7.8k)</div>
+          <div class="metric-trend">Loan proceeds of $54.0k were more than offset by $62.5k of partner distributions.</div>
+        </article>
+      </div>
+      <div class="grid-two">
+        <article class="card">
+          <div class="meta-label">Receivables aging as of April 15</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Bucket</th>
+                <th class="text-right">Amount</th>
+                <th class="text-right">% of A/R</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>61-90 days</td><td class="text-right">$7.9k</td><td class="text-right">5.7%</td></tr>
+              <tr><td>91+ days</td><td class="text-right">$131.2k</td><td class="text-right">94.3%</td></tr>
+              <tr><td><strong>Total A/R</strong></td><td class="text-right"><strong>$139.2k</strong></td><td class="text-right"><strong>100.0%</strong></td></tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="card">
+          <div class="meta-label">Largest aged balances</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th class="text-right">Amount</th>
+                <th>Bucket</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Terrence Ruffin</td><td class="text-right">$94.7k</td><td>91+</td></tr>
+              <tr><td>John O'Malley</td><td class="text-right">$25.9k</td><td>91+</td></tr>
+              <tr><td>Anita Gaskins</td><td class="text-right">$12.8k</td><td>91+</td></tr>
+              <tr><td>Pinkney</td><td class="text-right">$7.9k</td><td>61-90</td></tr>
+              <tr><td><strong>Total A/P</strong></td><td class="text-right"><strong>$2.5k</strong></td><td>31-60</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="insights">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">CFO commentary</div>
+          <h2 class="section-title">What matters most coming out of March</h2>
+          <p class="section-note">The month needs to be read as an execution and cash-conversion issue first, not just a reporting issue.</p>
+        </div>
+      </div>
+      <div class="grid-two">
+        <div class="insight-list">
+          <article class="insight danger">
+            <h3>1. March job economics were upside down</h3>
+            <p>Revenue fell to $22.1k while direct labor alone was $54.8k and materials added another $28.7k. That produced a gross loss of $61.7k before overhead, which means margin discipline on active work needs immediate review.</p>
+          </article>
+          <article class="insight warning">
+            <h3>2. Overhead is not the main story, but it still adds drag</h3>
+            <p>March operating expenses were $21.8k. The biggest items were uncategorized expense at $10.8k, accounting fees at $3.3k, and software and design tools at $1.7k combined. Clean classification will matter when separating recurring overhead from one-time cleanup or catch-up items.</p>
+          </article>
+        </div>
+        <div class="insight-list">
+          <article class="insight danger">
+            <h3>3. A/R concentration is the clearest cash lever</h3>
+            <p>Total receivables sit at $139.2k, and 94.3% is already 91+ days old. Collections on a small number of older balances would likely do more for liquidity in the next 30 days than incremental cost cutting alone.</p>
+          </article>
+          <article class="insight">
+            <h3>4. Cash survived the quarter, but not because the core engine was healthy</h3>
+            <p>Cash closed at $44.0k, yet operating cash flow was still negative and financing activity absorbed more cash than it contributed net. The business needs better conversion from completed work into billed and collected cash.</p>
+          </article>
+        </div>
+      </div>
+      <div class="note">The downloaded balance sheet export dated April 15, 2026 shows $0 across all balance sheet lines. This dashboard does not rely on that file for decision-making. Before using balance-sheet-based KPIs, re-export the report from QuickBooks and verify book settings or report filters.</div>
+      <div class="footer">
+        <div>Prepared from the March 2026 Harbour P&amp;L, statement of cash flows, and A/R and A/P aging exports.</div>
+        <div>TurnkeyCFO confidential client reporting.</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
