@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,281 +6,215 @@
   <title>Harbour Company Client Portal | TurnkeyCFO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #00263A;
-      --green: #00C85A;
-      --green-soft: #5DD870;
-      --ice: #DAE1E9;
-      --white: #FFFFFF;
-      --muted: #8EA5B4;
-      --border: rgba(218, 225, 233, 0.18);
-      --card-bg: rgba(255, 255, 255, 0.04);
-      --radius: 14px;
-      --font-body: "Plus Jakarta Sans", sans-serif;
+      --tk-navy: #00263A;
+      --tk-navy-mid: #003A56;
+      --tk-green: #00C85A;
+      --tk-bg-light: #F2F5F8;
+      --tk-bg-soft: #EEF0F1;
+      --tk-white: #FFFFFF;
+      --tk-text: #0D1F2D;
+      --tk-text-soft: #36576A;
+      --tk-text-muted: #7A909F;
+      --tk-border: rgba(0, 38, 58, 0.10);
+      --tk-success: #00C85A;
+      --shadow: 0 6px 18px rgba(7, 47, 69, 0.08);
     }
-    html { scroll-behavior: smooth; }
+
+    * { box-sizing: border-box; }
     body {
-      font-family: var(--font-body);
-      background-color: var(--navy);
-      color: var(--ice);
-      min-height: 100vh;
-      overflow-x: hidden;
+      margin: 0;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: linear-gradient(180deg, var(--tk-bg-light) 0%, var(--tk-white) 100%);
+      color: var(--tk-text);
     }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 180px 180px;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
-    }
-    body::after {
-      content: "";
-      position: fixed;
-      top: -20%;
-      right: -10%;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(0, 200, 90, 0.13) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
+
     .shell {
-      position: relative;
-      z-index: 1;
-      max-width: 980px;
+      width: min(1080px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 0 24px 80px;
+      padding: 24px 0 56px;
     }
-    nav {
+
+    .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 28px 0 0;
-      margin-bottom: 56px;
+      gap: 16px;
+      padding: 14px 0 24px;
+      border-bottom: 1px solid var(--tk-border);
     }
-    .nav-brand {
+
+    .brand {
       font-size: 15px;
       font-weight: 700;
-      color: var(--white);
-      text-decoration: none;
-      letter-spacing: -0.01em;
+      color: var(--tk-navy);
     }
-    .nav-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--green);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+
+    .secure {
+      font-size: 13px;
+      color: var(--tk-text-muted);
     }
-    .nav-badge::before, .status-dot {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2s ease-in-out infinite;
+
+    .intro {
+      display: grid;
+      gap: 8px;
+      padding: 28px 0 20px;
     }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-    .hero { margin-bottom: 56px; animation: fadeUp 0.6s ease both; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-    .hero-eyebrow, .section-title, .card-status {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--tk-navy);
     }
-    .hero-eyebrow { color: var(--muted); margin-bottom: 14px; }
-    .hero-greeting {
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 800;
-      color: var(--white);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
+
+    .subcopy {
+      max-width: 640px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--tk-text-soft);
     }
-    .client-name {
-      background: linear-gradient(90deg, var(--white) 0%, var(--green-soft) 50%, var(--white) 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 5s linear infinite;
+
+    .meta {
+      font-size: 13px;
+      color: var(--tk-text-muted);
     }
-    @keyframes shimmer { to { background-position: 200% center; } }
-    .hero-sub {
-      font-size: 14px;
-      color: var(--muted);
-      max-width: 540px;
-      line-height: 1.6;
-      margin-bottom: 20px;
+
+    .section {
+      margin-top: 28px;
     }
-    .hero-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-    .section { margin-bottom: 44px; animation: fadeUp 0.6s ease both; }
+
     .section-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
     }
-    .section-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      background: rgba(0, 200, 90, 0.12);
-      border: 1px solid rgba(0, 200, 90, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--tk-navy);
     }
-    .section-icon svg { width: 14px; height: 14px; }
-    .section-title { color: var(--muted); }
-    .section-line { flex: 1; height: 1px; background: var(--border); }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--tk-border);
+    }
+
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
     }
+
     .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 20px 16px;
-      text-decoration: none;
+      display: block;
+      padding: 18px 18px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--tk-border);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
       color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      transition: background 0.2s, border-color 0.2s, transform 0.18s;
+      text-decoration: none;
+      transition: border-color 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
     }
+
     .card:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(218, 225, 233, 0.32);
-      transform: translateY(-2px);
+      border-color: rgba(0, 38, 58, 0.22);
+      box-shadow: 0 10px 24px rgba(7, 47, 69, 0.10);
+      background: rgba(255, 255, 255, 0.96);
     }
-    .card.latest { border-color: rgba(0, 200, 90, 0.35); }
-    .card-month {
+
+    .card-title {
       font-size: 17px;
       font-weight: 700;
-      letter-spacing: -0.01em;
-      color: var(--white);
+      color: var(--tk-navy);
       margin-bottom: 4px;
     }
+
     .card-type {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 500;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--tk-text-soft);
+      margin-bottom: 14px;
     }
+
     .card-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: auto;
-      padding-top: 14px;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--tk-border);
+      font-size: 12px;
+      color: var(--tk-text-muted);
     }
-    .card-status {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: var(--green);
-      letter-spacing: 0.06em;
+
+    .live {
+      color: var(--tk-success);
+      font-weight: 700;
     }
-    .card-arrow {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      transition: border-color 0.2s, color 0.2s;
+
+    .empty {
+      padding: 16px 2px;
+      font-size: 14px;
+      color: var(--tk-text-muted);
     }
-    .card:hover .card-arrow { border-color: var(--green); color: var(--green); }
-    .card-arrow svg { width: 11px; height: 11px; }
-    .empty-msg { font-size: 13px; color: var(--muted); padding: 6px 2px; }
+
     .footer {
-      margin-top: 64px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
       flex-wrap: wrap;
-      gap: 12px;
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid var(--tk-border);
+      font-size: 12px;
+      color: var(--tk-text-muted);
     }
-    .footer-left { display: flex; align-items: center; gap: 10px; }
-    .footer-brand { font-size: 13px; font-weight: 700; color: var(--white); }
-    .footer-sep { color: var(--border); }
-    .footer-copy, .footer-right { font-size: 12px; color: var(--muted); }
-    @media (max-width: 600px) {
-      .shell { padding: 0 16px 60px; }
-      nav { margin-bottom: 40px; }
-      .hero-greeting { font-size: 32px; }
-      .card-grid { grid-template-columns: 1fr; }
-      .footer { flex-direction: column; align-items: flex-start; }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100%, calc(100% - 20px)); }
+      .topbar, .footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
   <div class="shell">
-    <nav>
-      <a class="nav-brand" href="#">TurnkeyCFO</a>
-      <span class="nav-badge">Secure Portal</span>
-    </nav>
+    <header class="topbar">
+      <div class="brand">TurnkeyCFO</div>
+      <div class="secure">Secure client portal</div>
+    </header>
 
-    <div class="hero">
-      <div class="hero-eyebrow">Client Financial Portal</div>
-      <h1 class="hero-greeting">
-        Welcome back,<br />
-        <span class="client-name">Harbour Company.</span>
-      </h1>
-      <p class="hero-sub">Your dedicated financial command center. Select the March dashboard below for a focused view of month performance, year-to-date movement, cash position, and collections risk.</p>
-      <div class="hero-meta">Last Updated · April 15, 2026</div>
-    </div>
+    <section class="intro">
+      <h1>Harbour Company portal</h1>
+      <div class="subcopy">
+        Your March reporting package is ready. Open the dashboard below for the month view, year-to-date context, cash position,
+        receivables aging, and CFO commentary.
+      </div>
+      <div class="meta">Last updated April 15, 2026</div>
+    </section>
 
     <section class="section">
       <div class="section-header">
-        <div class="section-icon">
-          <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="1.5" width="11" height="12" rx="1.5" stroke="#00C85A" stroke-width="1.5" />
-            <line x1="5" y1="5.5" x2="10" y2="5.5" stroke="#00C85A" stroke-width="1.3" stroke-linecap="round" />
-            <line x1="5" y1="8" x2="10" y2="8" stroke="#00C85A" stroke-width="1.3" stroke-linecap="round" />
-            <line x1="5" y1="10.5" x2="8" y2="10.5" stroke="#00C85A" stroke-width="1.3" stroke-linecap="round" />
-          </svg>
-        </div>
-        <span class="section-title">Financial Statements</span>
-        <div class="section-line"></div>
+        <h2>Financial Statements</h2>
+        <div class="section-rule"></div>
       </div>
       <div class="card-grid">
-        <a class="card latest" href="./march-2026-dashboard.html">
-          <div class="card-month">March 2026</div>
+        <a class="card" href="./march-2026-dashboard.html">
+          <div class="card-title">March 2026</div>
           <div class="card-type">Monthly financial dashboard</div>
           <div class="card-footer">
-            <span class="card-status"><span class="status-dot"></span>Live</span>
-            <span class="card-arrow" aria-hidden="true">
-              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 3.5L10 8L5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>
+            <span class="live">Live</span>
+            <span>Open dashboard</span>
           </div>
         </a>
       </div>
@@ -288,56 +222,23 @@
 
     <section class="section">
       <div class="section-header">
-        <div class="section-icon">
-          <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="1" y="1.5" width="13" height="12" rx="1.5" stroke="#00C85A" stroke-width="1.5" />
-            <path d="M3.5 10L5.5 7L8 9L10.5 5.5L12.5 7" stroke="#00C85A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-        <span class="section-title">KPI Dashboards</span>
-        <div class="section-line"></div>
+        <h2>KPI Dashboards</h2>
+        <div class="section-rule"></div>
       </div>
-      <div class="card-grid">
-        <a class="card latest" href="./march-2026-dashboard.html#insights">
-          <div class="card-month">March 2026</div>
-          <div class="card-type">KPI dashboard + CFO commentary</div>
-          <div class="card-footer">
-            <span class="card-status"><span class="status-dot"></span>Updated</span>
-            <span class="card-arrow" aria-hidden="true">
-              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 3.5L10 8L5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </span>
-          </div>
-        </a>
-      </div>
+      <div class="empty">No additional KPI dashboard is published in this section yet.</div>
     </section>
 
     <section class="section">
       <div class="section-header">
-        <div class="section-icon">
-          <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="1.5" width="11" height="12" rx="1.5" stroke="#00C85A" stroke-width="1.5" />
-            <line x1="5" y1="5.5" x2="10" y2="5.5" stroke="#00C85A" stroke-width="1.3" stroke-linecap="round" />
-            <line x1="5" y1="8" x2="10" y2="8" stroke="#00C85A" stroke-width="1.3" stroke-linecap="round" />
-            <path d="M5 11.5 L7.5 14 L10 11.5" stroke="#00C85A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-        <span class="section-title">Annual Reports</span>
-        <div class="section-line"></div>
+        <h2>Annual Reports</h2>
+        <div class="section-rule"></div>
       </div>
-      <div class="card-grid">
-        <p class="empty-msg">Reports coming soon.</p>
-      </div>
+      <div class="empty">Reports coming soon.</div>
     </section>
 
     <footer class="footer">
-      <div class="footer-left">
-        <span class="footer-brand">TurnkeyCFO</span>
-        <span class="footer-sep">·</span>
-        <span class="footer-copy">Confidential · For authorized client use only</span>
-      </div>
-      <div class="footer-right">Questions? hello@turnkeycfo.com</div>
+      <div>TurnkeyCFO confidential reporting for authorized client use only.</div>
+      <div>hello@turnkeycfo.com</div>
     </footer>
   </div>
 </body>
